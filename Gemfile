@@ -46,3 +46,6 @@ end
 
 # Use rails12factor Gem to prepare for Heroku deployment
 gem 'rails_12factor', group: :production
+
+#use devise gem for user authentication
+gem 'devise'
