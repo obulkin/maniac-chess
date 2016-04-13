@@ -53,3 +53,8 @@ gem 'devise'
 #include bootstrap
 gem 'bootstrap-sass', '~> 3.3.6'
 gem 'sprockets', '>= 3.2'
+
+# Use RSpec as the test framework
+group :development, :test do
+  gem "rspec-rails", "~> 3.0"
+end
