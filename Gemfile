@@ -61,3 +61,6 @@ group :development, :test do
   # Use factory_girl in place of fixtures for generating test objects
   gem "factory_girl_rails", "~> 4.0"
 end
+
+# Use Simple Form for easier form creation
+gem "simple_form"
