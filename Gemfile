@@ -54,7 +54,10 @@ gem 'devise'
 gem 'bootstrap-sass', '~> 3.3.6'
 gem 'sprockets', '>= 3.2'
 
-# Use RSpec as the test framework
 group :development, :test do
+  # Use RSpec as the test framework
   gem "rspec-rails", "~> 3.0"
+
+  # Use factory_girl in place of fixtures for generating test objects
+  gem "factory_girl_rails", "~> 4.0"
 end
