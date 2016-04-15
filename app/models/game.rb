@@ -7,6 +7,6 @@ class Game < ActiveRecord::Base
 
   private
   def players_must_be_different
-    errors.add("A game must have two different players") if white_player_id == black_player_id
+    errors.add(:base, "A game must have two different players") if white_player_id == black_player_id
   end
 end
