@@ -5,7 +5,7 @@ class Game < ActiveRecord::Base
 
   private
   def at_least_one_player
-    errors.add(:base, "A game must have at least one player") unless white_player_id || black_player_id
+    errors.add(:base, "A game must have at least one player") unless white_player_id.present? || black_player_id.present?
   end
 
   def players_must_be_different

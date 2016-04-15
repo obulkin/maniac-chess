@@ -9,13 +9,8 @@ RSpec.describe Game, type: :model do
       expect(game.save).to eq(false)
     end
 
-    it "should not accept games without a white player ID" do
-      game.white_player_id = nil
-      expect(game.save).to eq(false)
-    end
-
-    it "should not accept games without a black player ID" do
-      game.black_player_id = nil
+    it "should not accept games without a player" do
+      game.white_player_id = game.black_player_id = nil
       expect(game.save).to eq(false)
     end
 
