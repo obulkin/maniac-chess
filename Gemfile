@@ -64,3 +64,6 @@ end
 
 # Use Simple Form for easier form creation
 gem "simple_form"
+
+# Use figaro to manage enviroment variables
+gem 'figaro'
