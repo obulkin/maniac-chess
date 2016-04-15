@@ -34,4 +34,18 @@ RSpec.describe Game, type: :model do
       expect(game.save).to eq(false)
     end
   end
+
+  describe "DB constraints" do
+    it "should have white as unable to castle by default" do
+      expect(game.white_can_castle).to eq(false)
+    end
+
+    it "should have black as unable to castle by default" do
+      expect(game.black_can_castle).to eq(false)
+    end
+
+    it "should have white as next to move by default" do
+      expect(game.white_to_move).to eq(true)
+    end
+  end
 end
