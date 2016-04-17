@@ -62,6 +62,12 @@ group :development, :test do
   gem "factory_girl_rails", "~> 4.0"
 end
 
+# Use Simple Form for easier form creation
+gem "simple_form"
+
+# Use figaro to manage enviroment variables
+gem 'figaro'
+
 # OmniAuth Authentication
 gem 'omniauth-google-oauth2'
 gem 'omniauth-facebook'
