@@ -43,4 +43,9 @@ RSpec.describe Game, type: :model do
       expect(game.white_to_move).to eq(true)
     end
   end
+
+  it "should have correct number of pieces" do
+      game = Game.create
+      game.pieces.count==32
+    end
 end
