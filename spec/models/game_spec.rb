@@ -42,6 +42,20 @@ RSpec.describe Game, type: :model do
     it "should have white as next to move by default" do
       expect(game.white_to_move).to eq(true)
     end
+
+    it "should not allow a white player ID that doesn't correspond to a user" do
+      last_user = User.last
+      invalid_id = last_user ? last_user.id + 1 : 1
+      game.white_player_id = invalid_id
+      expect{game.save}.to raise_error(ActiveRecord::InvalidForeignKey)
+    end
+
+    it "should not allow a black player ID that doesn't correspond to a user" do
+      last_user = User.last
+      invalid_id = last_user ? last_user.id + 1 : 1
+      game.black_player_id = invalid_id
+      expect{game.save}.to raise_error(ActiveRecord::InvalidForeignKey)
+    end
   end
 
   describe "associations" do
