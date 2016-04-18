@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Game, type: :model do
-  let (:game) {create :game}
+  let(:game) {create :game}
 
   describe "validations" do
     it "should not accept games without a name" do
