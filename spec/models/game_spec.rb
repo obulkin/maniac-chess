@@ -43,4 +43,16 @@ RSpec.describe Game, type: :model do
       expect(game.white_to_move).to eq(true)
     end
   end
+
+  describe "associations" do
+    it "should be associated with a user based on white_player_id" do
+      expect(game.white_player.class).to eq(User)
+      expect(game.white_player.id).to eq(game.white_player_id)
+    end
+
+    it "should be associated with a user based on black_player_id" do
+      expect(game.black_player.class).to eq(User)
+      expect(game.black_player.id).to eq(game.black_player_id)
+    end
+  end
 end
