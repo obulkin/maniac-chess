@@ -44,8 +44,32 @@ RSpec.describe Game, type: :model do
     end
   end
 
-  it "should have correct number of pieces" do
-      game = Game.create
-      game.pieces.count==32
+  describe "Populate Board" do
+    it "should have correct number of pieces" do
+      game = FactoryGirl.create(:game)
+      expect(game.pieces.count).to eq 32
     end
+
+    it "Pawn is in correct position" do
+      game = FactoryGirl.create(:game)
+      expect(game.pieces.first.type).to eq("Pawn")
+
+      expected = [2, 1]
+      expect([game.pieces.first.rank, game.pieces.first.file]).to eq(expected)
+    end
+
+    it "Rook is in correct position" do
+      game = FactoryGirl.create(:game)
+      expect(game.pieces.last.type).to eq("Rook")
+
+      expected = [8, 8]
+      expect([game.pieces.last.rank, game.pieces.last.file]).to eq(expected)
+    end
+
+    it "should successfully hook up the database relationship between pieces and games" do
+      game = FactoryGirl.create(:game)
+      piece = game.pieces.last
+      expect(piece.game).to eq(game)
+    end
+  end  
 end
