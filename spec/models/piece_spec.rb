@@ -54,6 +54,21 @@ RSpec.describe Piece, type: :model do
     it "should not be eligible for en passant capture by default" do
       expect(piece.en_passant).to eq(false)
     end
+
+    it "should not allow a game ID that doesn't correspond to a game" do
+      piece = create :piece
+      invalid_id = Game.last.id + 1
+      piece.game_id = invalid_id
+      expect{piece.save}.to raise_error(ActiveRecord::InvalidForeignKey)
+    end
+
+    it "should respond to game deletion by deleting any pieces with that game's ID" do
+      ephemeral_game = piece.game
+      piece_2 = create :piece, game_id: ephemeral_game.id
+      ephemeral_game.delete
+      expect{piece.reload}.to raise_error(ActiveRecord::RecordNotFound)
+      expect{piece_2.reload}.to raise_error(ActiveRecord::RecordNotFound)
+    end
   end
 
   describe "associations" do
