@@ -5,6 +5,7 @@ class Game < ActiveRecord::Base
 
   belongs_to :white_player, class_name: "User"
   belongs_to :black_player, class_name: "User"
+  has_many :pieces
 
   private
   def at_least_one_player

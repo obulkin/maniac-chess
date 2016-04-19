@@ -68,5 +68,13 @@ RSpec.describe Game, type: :model do
       expect(game.black_player.class).to eq(User)
       expect(game.black_player.id).to eq(game.black_player_id)
     end
+
+    it "should be associated with a number of pieces based on its ID" do
+      (1..2).each {create :piece, game_id: game.id}
+      game.pieces.each do |piece| 
+        expect(piece.kind_of? Piece).to eq(true)
+        expect(piece.game_id).to eq(game.id)
+      end
+    end 
   end
 end
