@@ -16,7 +16,7 @@ RSpec.describe User, type: :model do
 
       expect(user.games.include? game_1).to eq(true)
       expect(user.games.include? game_2).to eq(true)
-      expect(user.games.length).to eq(2)
+      expect(user.games.count).to eq(2)
     end
   end
 end

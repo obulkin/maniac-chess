@@ -75,6 +75,18 @@ RSpec.describe Game, type: :model do
         expect(piece.kind_of? Piece).to eq(true)
         expect(piece.game_id).to eq(game.id)
       end
-    end 
+    end
+  end
+
+  describe "scopes" do
+    it "should have an active scope that returns any games which have not yet ended in a draw or mate and no others" do
+      create :game, state: "open"
+      create :game, state: "white_in_check"
+      create :game, state: "black_in_check"
+      create :game, state: "white_in_mate"
+      Game.active.each do |game|
+        expect(game.state).to eq("open").or eq("white_in_check").or eq("black_in_check")
+      end
+    end
   end
 end

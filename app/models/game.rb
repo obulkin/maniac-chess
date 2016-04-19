@@ -7,6 +7,8 @@ class Game < ActiveRecord::Base
   belongs_to :black_player, class_name: "User"
   has_many :pieces
 
+  scope :active, -> {where state: ["open", "white_in_check", "black_in_check"]} 
+
   private
   def at_least_one_player
     errors.add(:base, "A game must have at least one player") unless white_player_id.present? || black_player_id.present?
