@@ -62,4 +62,16 @@ RSpec.describe Piece, type: :model do
       expect(piece.game.id).to eq(piece.game_id)
     end
   end
+
+  describe "#user" do
+    it "should correctly return the owner of a white piece" do
+      white_piece = create :piece, color: "white"
+      expect(white_piece.user.id).to eq(white_piece.game.white_player.id)
+    end
+
+    it "should correctly return the owner of a black piece" do
+      black_piece = create :piece, color: "black"
+      expect(black_piece.user.id).to eq(black_piece.game.black_player.id)
+    end
+  end
 end
