@@ -81,8 +81,8 @@ RSpec.describe Game, type: :model do
 
       it "should have a black piece at rank 8, file #{file}" do
         @black_piece = game.pieces.find{|piece| piece.rank == 8 && piece.file == file}
-        @black_piece_type = @black_piece.type
-        expect(@black_piece.type).to eq(@black_piece_type)
+        expected = @black_piece.type
+        expect(@black_piece.type).to eq(expected)
       end
     end  
   end
