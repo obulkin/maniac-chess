@@ -13,10 +13,9 @@ RSpec.describe User, type: :model do
       game_1 = create :game, white_player_id: user.id
       game_2 = create :game, black_player_id: user.id
       game_3 = create :game
-
-      expect(user.games.include? game_1).to eq(true)
-      expect(user.games.include? game_2).to eq(true)
-      expect(user.games.count).to eq(2)
+      user.games.each do |game|
+        expect(game).to satisfy {|game| game.white_player_id == user.id || game.black_player_id == user.id}
+      end
     end
   end
 end
