@@ -55,4 +55,11 @@ RSpec.describe Piece, type: :model do
       expect(piece.en_passant).to eq(false)
     end
   end
+
+  describe "associations" do
+    it "should be associated with a game based on game_id" do
+      expect(piece.game.class).to eq(Game)
+      expect(piece.game.id).to eq(piece.game_id)
+    end
+  end
 end

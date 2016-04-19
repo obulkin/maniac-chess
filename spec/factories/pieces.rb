@@ -4,6 +4,6 @@ FactoryGirl.define do
     color "white"
     rank 1
     file 1
-    game_id 1
+    association :game
   end
 end
