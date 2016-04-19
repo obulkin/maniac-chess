@@ -75,8 +75,8 @@ RSpec.describe Game, type: :model do
     {1 => "Rook", 2 => "Knight", 3 => "Bishop", 4 =>"Queen", 5 => "King", 6=> "Bishop", 7 => "Knight", 8 => "Rook"}.each do |file, type|  
       it "should have a white piece at rank 1, file #{file}" do
         @white_piece = game.pieces.find{|piece| piece.rank == 1 && piece.file == file}
-        @white_piece_type = @white_piece.type
-        expect(@white_piece.type).to eq(@white_piece_type)
+        expected = @white_piece.type
+        expect(@white_piece.type).to eq(expected)
       end
 
       it "should have a black piece at rank 8, file #{file}" do
