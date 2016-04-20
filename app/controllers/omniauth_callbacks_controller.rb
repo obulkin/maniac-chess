@@ -1,26 +1,28 @@
 class OmniauthCallbacksController < Devise::OmniauthCallbacksController
-  def google_oauth2
+
+  def do_omniauth
     @user = User.from_omniauth(request.env["omniauth.auth"])
+    provider_data = @user.provider
+    provider_kind = @user.provider.capitalize
+
+    if @user.provider == "google_oauth2"
+      provider_kind = "Google"
+    end
 
     if @user.persisted?
-      flash[:notice] = I18n.t "devise.omniauth_callbacks.success", :kind => "Google"
+      flash[:notice] = I18n.t("devise.omniauth_callbacks.success", kind: "#{provider_kind}")
       sign_in_and_redirect @user, :event => :authentication
     else
-      session["devise.google_data"] = request.env["omniauth.auth"]
+      session["devise.#{provider_data}_data"] = request.env["omniauth.auth"]
       redirect_to new_user_registration_url
     end
   end
 
-  def facebook
-    @user = User.from_omniauth(request.env["omniauth.auth"])
+  alias_method :facebook, :do_omniauth
+  alias_method :google_oauth2, :do_omniauth
 
-    if @user.persisted?
-      flash[:notice] = I18n.t "devise.omniauth_callbacks.success", :kind => "Facebook"
-      sign_in_and_redirect @user, :event => :authentication
-    else
-      session["devise.facebook_data"] = request.env["omniauth.auth"]
-      redirect_to new_user_registration_url
-    end
+  def failure
+    flash[:alert] = "Could not authenticate."
+    redirect_to root_path
   end
-
 end
