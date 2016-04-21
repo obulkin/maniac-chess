@@ -3,7 +3,11 @@ class Game < ActiveRecord::Base
   validates :state, presence: true, inclusion: {within: ["open", "white_in_check", "black_in_check", "white_in_mate", "black_in_mate", "draw"]}
   validate :at_least_one_player, :players_must_be_different
 
+  belongs_to :white_player, class_name: "User"
+  belongs_to :black_player, class_name: "User"
   has_many :pieces
+
+  scope :active, -> {where state: ["open", "white_in_check", "black_in_check"]} 
 
   after_create :populate_board!
 
