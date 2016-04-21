@@ -93,4 +93,42 @@ RSpec.describe Game, type: :model do
       end
     end
   end
+
+  describe "Populate Board" do
+    it "should have correct number of pieces" do
+      expect(game.pieces.count).to eq (32)
+    end
+
+    it "should be empty on the squares" do
+      expect(game.pieces.where(rank: 3..6)).to eq([])
+    end
+
+    (1..8).each do |file|
+      it "should have a white pawn at rank 2, file #{file}" do
+        pieces = game.pieces.where(rank: 2 , file: file)
+        expect(pieces.count).to eq(1)
+        expect([pieces.first.type, pieces.first.color]).to eq(["Pawn", "white"])
+      end
+
+      it "should have a black pawn at rank 7, file #{file}" do
+        pieces = game.pieces.where(rank: 7 , file: file)
+        expect(pieces.count).to eq(1)
+        expect([pieces.first.type, pieces.first.color]).to eq(["Pawn", "black"])
+      end
+    end
+
+    {1 => "Rook", 2 => "Knight", 3 => "Bishop", 4 =>"Queen", 5 => "King", 6=> "Bishop", 7 => "Knight", 8 => "Rook"}.each do |file, type|  
+      it "should have a correct type #{type} of white piece at rank 1, file #{file}" do
+        pieces = game.pieces.where(rank: 1 , file: file)
+        expect(pieces.count).to eq(1)
+        expect([pieces.first.type, pieces.first.color]).to eq([type, "white"])
+      end
+
+      it "should have a correct type #{type} of black piece at rank 8, file #{file}" do
+        pieces = game.pieces.where(rank: 8 , file: file)
+        expect(pieces.count).to eq(1)
+        expect([pieces.first.type, pieces.first.color]).to eq([type, "black"])
+      end
+    end  
+  end
 end
