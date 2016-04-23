@@ -14,4 +14,7 @@
   </div>
 <% end %>
 
+<%= link_to "Sign up with Facebook", user_omniauth_authorize_path(:facebook) %>
+<%= link_to "Sign up with Google", user_omniauth_authorize_path(:google_oauth2) %>
+
 <%= render "devise/shared/links" %>
