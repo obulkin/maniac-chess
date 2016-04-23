@@ -70,14 +70,14 @@ class Piece < ActiveRecord::Base
     # Horizontal moves
     elsif new_file > file
       (1..new_file - file).each do |offset|
-        piece_at_offset = current_pieces.select{|piece| piece.rank = rank && piece.file == file + offset}
+        piece_at_offset = current_pieces.select{|piece| piece.rank == rank && piece.file == file + offset}
         next if offset == new_file - file && piece_at_offset.present? && piece_at_offset.first.color != color 
         return true if piece_at_offset.present?         
       end
       false
     elsif new_file < file
       (new_file - file..-1).each do |offset|
-        piece_at_offset = current_pieces.select{|piece| piece.rank = rank && piece.file == file + offset}
+        piece_at_offset = current_pieces.select{|piece| piece.rank == rank && piece.file == file + offset}
         next if offset == new_file - file && piece_at_offset.present? && piece_at_offset.first.color != color 
         return true if piece_at_offset.present?  
       end
