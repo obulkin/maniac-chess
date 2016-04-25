@@ -11,7 +11,7 @@ class GamesController < ApplicationController
   end
 
   def show 
-    @game = Game.find_by_id(params[:id])
+    @game = Game.find(params[:id])
     if @game.blank?
       render text: 'Not Found', status: :not_found
     end
