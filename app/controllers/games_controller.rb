@@ -4,12 +4,9 @@ class GamesController < ApplicationController
     @game = Game.new
   end
 
-  def index
-  end
-
   def create
     @game = Game.create(game_params)
-    @game.update_attribute(white_player_id, current_user.id)
+    @game.update_attributes(white_player_id, current_user.id)
     redirect_to root_path
   end
 
