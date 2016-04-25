@@ -1,8 +1,8 @@
 FactoryGirl.define do
   factory :game do
     name "Test Game"
-    white_player_id 1
-    black_player_id 2
+    association :white_player, factory: :user
+    association :black_player, factory: :user
     state "open"
   end
 end
