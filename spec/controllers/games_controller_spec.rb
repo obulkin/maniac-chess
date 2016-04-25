@@ -11,7 +11,7 @@ RSpec.describe GamesController, type: :controller do
 
   describe "games#show action" do 
     it "should successfully show the page if the game is found" do
-      game = FactoryGirl.create(:game)
+      game = create(:game)
       get :show, id: game.id
       expect(response).to have_http_status(:success)
     end
