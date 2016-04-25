@@ -1,0 +1,24 @@
+ 	.board {
+ 		width: 60%;
+    	height: 70%;
+    	border: 3px solid #333;
+    	margin: 10px auto 10px auto;
+
+ 	}
+ 	body {
+ 		 padding-top: 10%; 
+ 		 padding-bottom: 10%;
+ 		
+ 	}
+	td {
+ 		empty-cells: show;
+ 		height: 80px;
+ 		width: 80px;
+ 		vertical-align:middle;
+ 	}
+ 	table.one {
+ 		border-collapse: collapse;
+ 	}
+ 	td.black {
+ 		background-color: #000608;
+ 	}
