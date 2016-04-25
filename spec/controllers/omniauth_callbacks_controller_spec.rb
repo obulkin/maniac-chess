@@ -46,7 +46,7 @@ RSpec.describe OmniauthCallbacksController, :type => :controller do
 
 
   describe "#google_oauth2 callback" do
-    
+
     context "given user did persist" do
       before do
         OmniAuth.config.mock_auth[:do_omniauth] = OmniAuth::AuthHash.new({
@@ -88,13 +88,14 @@ RSpec.describe OmniauthCallbacksController, :type => :controller do
 
   # describe "#failure" do
   #   before do
+  #     OmniAuth.config.mock_auth[:facebook] = :invalid_credentials
   #     OmniAuth.config.on_failure = Proc.new { |env|
   #       OmniAuth::FailureEndpoint.new(env).redirect_to_failure
   #     }
-  #     OmniAuth.config.mock_auth[:do_omniauth] = :invalid_credentials
+  #
   #     request.env["devise.mapping"] = Devise.mappings[:user]
-  #     request.env["omniauth.auth"] = OmniAuth.config.mock_auth[:do_omniauth]
-  #     get :google_oauth2
+  #     request.env["omniauth.auth"] = OmniAuth.config.mock_auth[:facebook]
+  #     get :facebook
   #   end
   #
   #   it "should redirect user to root path if authentication failed" do
