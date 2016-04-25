@@ -19,6 +19,9 @@
  	table.one {
  		border-collapse: collapse;
  	}
- 	td.black {
+ 	.board tr.odd td:nth-child(odd){
+ 		  background-color: #000608
+ 	}
+ 	.board tr.even td:nth-child(even){
  		background-color: #000608;
  	}
