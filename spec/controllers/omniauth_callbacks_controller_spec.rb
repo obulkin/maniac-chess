@@ -85,21 +85,4 @@ RSpec.describe OmniauthCallbacksController, :type => :controller do
       end
     end
   end
-
-  # describe "#failure" do
-  #   before do
-  #     OmniAuth.config.mock_auth[:facebook] = :invalid_credentials
-  #     OmniAuth.config.on_failure = Proc.new { |env|
-  #       OmniAuth::FailureEndpoint.new(env).redirect_to_failure
-  #     }
-  #
-  #     request.env["devise.mapping"] = Devise.mappings[:user]
-  #     request.env["omniauth.auth"] = OmniAuth.config.mock_auth[:facebook]
-  #     get :facebook
-  #   end
-  #
-  #   it "should redirect user to root path if authentication failed" do
-  #     expect(response).to redirect_to root_path
-  #   end
-  # end
 end
