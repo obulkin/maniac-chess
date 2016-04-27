@@ -1,4 +1,5 @@
 class GamesController < ApplicationController
+  before_action :authenticate_user!
 
   def new
     @game = Game.new
@@ -6,12 +7,17 @@ class GamesController < ApplicationController
 
   def create
     @game = Game.create(game_params)
-    @game.update_attributes(white_player_id, current_user.id)
+    @game.update_attributes(current_user.id)
     redirect_to root_path
+    if @game.valid?
+      redirect_to game_path(@game)
+    else
+      render :new, status: :unprocessable_entity
+    end
   end
 
   def show 
-    @game = Game.find_by_id(params[:id])
+    @game = Game.find(params[:id])
     if @game.nil?
       render text: 'Not Found', status: :not_found
     end
@@ -19,7 +25,7 @@ class GamesController < ApplicationController
 
   def update 
     @game = Game.find(params[:id])
-    @game.update_attributes(black_player_id: current_user.id)
+    @game.update_attributes(current_user.id)
     redirect_to game_path(@game.id)
   end
 
