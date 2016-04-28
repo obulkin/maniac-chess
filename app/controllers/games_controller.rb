@@ -6,10 +6,10 @@ class GamesController < ApplicationController
   end
 
   def create
-    @game = Game.create(game_params)
+    @game = Game.new(game_params)
     @game.update_attributes(current_user.id)
     redirect_to root_path
-    if @game.valid?
+    if @game.save?
       redirect_to game_path(@game)
     else
       render :new, status: :unprocessable_entity
@@ -19,7 +19,7 @@ class GamesController < ApplicationController
   def show 
     @game = Game.find(params[:id])
     if @game.nil?
-      render text: 'Not Found', status: :not_found
+      render status: :not_found
     end
   end
 
