@@ -1,15 +1,13 @@
 class GamesController < ApplicationController
-  before_action :authenticate_user!
+  before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy]
 
   def new
     @game = Game.new
   end
 
   def create
-    @game = Game.new(game_params)
-    @game.update_attributes(current_user.id)
-    redirect_to root_path
-    if @game.save?
+    @game = Game.new(game_params.merge(user_id: current_user.id))
+    if @game.save
       redirect_to game_path(@game)
     else
       render :new, status: :unprocessable_entity
@@ -19,7 +17,7 @@ class GamesController < ApplicationController
   def show 
     @game = Game.find(params[:id])
     if @game.nil?
-      render status: :not_found
+      render text: 'Not Found', status: :not_found
     end
   end
 
