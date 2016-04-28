@@ -8,7 +8,7 @@ class GamesController < ApplicationController
   def create
     @game = Game.new(game_params.merge(white_player_id: current_user.id))
     if @game.save
-      redirect_to game_path(@game)
+      redirect_to game_path(@game, @name)
     else
       render :new, status: :unprocessable_entity
     end
@@ -27,7 +27,7 @@ class GamesController < ApplicationController
   def update 
     @game = Game.find(params[:id])
     @game.update_attributes(current_user.id)
-    redirect_to game_path(@game.id)
+    redirect_to game_path(@game)
   end
 
   private
