@@ -6,7 +6,7 @@ class GamesController < ApplicationController
   end
 
   def create
-    @game = Game.new(game_params.merge(user_id: current_user.id))
+    @game = Game.new(game_params.merge(white_player_id: current_user.id))
     if @game.save
       redirect_to game_path(@game)
     else
