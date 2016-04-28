@@ -14,10 +14,13 @@ class GamesController < ApplicationController
     end
   end
 
-  def show 
-    @game = Game.find(params[:id])
-    if @game.nil?
-      render text: 'Not Found', status: :not_found
+  def show
+    begin 
+      @game = Game.find(params[:id])
+    rescue
+      if @game.nil?
+        render text: 'Game Not Found', status: :not_found
+      end
     end
   end
 
