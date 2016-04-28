@@ -1,18 +1,28 @@
 <body>
-	<div class="board">
- 		<table class="one">
- 			<% 4.times do %>
- 			<tr class="odd">
- 		 		<% 8.times do %>
- 		 		  <td></td>
- 		 		<% end %>
- 		 	</tr>
- 		 	 <tr class="even">
- 		 		<% 1.upto(8) do %>
- 		 		  <td></td>
- 		 		<% end %>
- 			</tr>
- 			<% end %>
-		</table>
- 	</div>
+
+ <div class="container">
+
+  <div class="board">
+
+    <table class="one">
+      <% 4.times do %>
+     
+        <tr class="even">
+ 	       <% 8.times do %>
+ 	        <td></td>	 
+ 	       <% end %>
+ 	      </tr>
+  
+        <tr class="odd">
+         <% 8.times do %>
+ 	        <td></td>
+         <% end %>
+ 			  </tr>
+ 			
+      <% end %>
+
+	  </table>
+  </div>
+ </div>
+
 </body>

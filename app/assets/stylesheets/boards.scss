@@ -1,27 +1,34 @@
- 	.board {
- 		width: 60%;
-    	height: 70%;
-    	border: 3px solid #333;
-    	margin: 10px auto 10px auto;
+.board {
+ 	width: 95%;
+  height: 95%;
+  border: 3px solid #333;
+  margin: 10px auto 10px auto;
+  vertical-align: middle;
+}
+body {
+ 	padding-top: 10%; 
+ 	padding-bottom: 10%;
+}
+td {
+  empty-cells: show;
+}
+table.one, .board {
+  border-collapse: collapse;
+ 	height: 45em;
+ 	width: 45em;
+ 	overflow:hidden
+}
+.board tr.odd td:nth-child(odd){
+ 	background-color: #000608
+}
+.board tr.even td:nth-child(even){
+ 	background-color: #000608;
+}
+.container{
+ 	width:auto;
+  height:auto;
+  max-width:90%;
+  display: table;
+}
 
- 	}
- 	body {
- 		 padding-top: 10%; 
- 		 padding-bottom: 10%;
- 		
- 	}
-	td {
- 		empty-cells: show;
- 		height: 80px;
- 		width: 80px;
- 		vertical-align:middle;
- 	}
- 	table.one {
- 		border-collapse: collapse;
- 	}
- 	.board tr.odd td:nth-child(odd){
- 		  background-color: #000608
- 	}
- 	.board tr.even td:nth-child(even){
- 		background-color: #000608;
- 	}
+ 
