@@ -28,7 +28,7 @@ RSpec.describe GamesController, type: :controller do
     it "should successfully create a new game in the database" do
       user = create(:user)
       sign_in user
-      post :create, game: {name: ''}
+      post :create, game: {name: 'User1'}
       expect(response).to redirect_to game_path(@game, @name)
 
       game = Game.last 
@@ -38,7 +38,7 @@ RSpec.describe GamesController, type: :controller do
     it "should properly deal with validation errors" do
       user = create(:user)
       sign_in user
-      post :create, game: {name: ''}
+      post :create, game: {name: 'User1'}
       expect(response).to have_http_status(:unprocessable_entity)
       expect(Game.count).to eq 0
     end
