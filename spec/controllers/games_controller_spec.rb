@@ -25,22 +25,32 @@ RSpec.describe GamesController, type: :controller do
   end
 
   describe "games#create action" do
-    it "should successfully create a new game in the database" do
-      user = create(:user)
-      sign_in user
-      post :create, game: {name: 'User1'}
-      expect(response).to redirect_to game_path(@game, @name)
+    context "with valid attributes" do
+      it "creates a new game" do 
+        expect{
+          post :create, game: FactoryGirl.attributes_for(:game)
+        }.to change(Game,:count).by(1)
+      end
 
-      game = Game.last 
-      expect(game.message).to eq(" ")
+      it "redirects to the new game" do
+        post :create, game: FactoryGirl.attributes_for(:game)
+        expect(response).to redirect_to Game.last
+      end
     end
 
-    it "should properly deal with validation errors" do
-      user = create(:user)
-      sign_in user
-      post :create, game: {name: 'User1'}
-      expect(response).to have_http_status(:unprocessable_entity)
-      expect(Game.count).to eq 0
+    context "with invalid attributes" do 
+      it "does not save the new game" do
+        expect{
+          post :create, game: FactoryGirl.attributes_for(:invalid_game)
+        }.to_not change(Game, :count)
+      end
+
+      it "re-renders the new method" do
+        post :create, game: FactoryGirl.attributes_for(:invalid_game)
+        expect(response).to render_template :new
+      end
     end
   end
 end
+
+
