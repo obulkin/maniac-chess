@@ -1,24 +1,19 @@
-.board {
- height: 56.3em;
- width: 56em;
- border: 3px solid #333;
- margin: 10px auto 10px auto;
- vertical-align: middle;
-}
 body {
- padding-top: 10%; 
- padding-bottom: 10%;
+padding: 10%;
+width: 60em;
+margin: 0 auto 0 auto;
 }
 td {
- empty-cells: show;
- height: 7em;
- width: 7em;
+empty-cells: show;
+height: 5em;
+width: 5em;
+border: 3px solid #333;
 }
-.board tr.odd td:nth-child(odd){
- background-color: #000608
+tr.odd td:nth-child(odd){
+background-color: #000608
 }
-.board tr.even td:nth-child(even){
- background-color: #000608;
+tr.even td:nth-child(even){
+background-color: #000608;
 }
 
  
