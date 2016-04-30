@@ -3,12 +3,6 @@ FactoryGirl.define do
   factory :auth_hash, class: OmniAuth::AuthHash do
     skip_create
 
-    transient do
-      sequence(:uid)
-      provider "provider"
-      email { "email" }
-    end
-
     initialize_with do
       OmniAuth::AuthHash.new({
         provider: provider,
@@ -21,17 +15,19 @@ FactoryGirl.define do
 
     trait :facebook do
       provider "facebook"
+      sequence(:uid)
       email "testuser@facebook.com"
     end
 
-    trait :google_oauth2 do
-      provider "google_oauth2"
+    trait :google do
+      provider "google"
+      sequence(:uid)
       email "testuser@gmail.com"
     end
 
     trait :does_not_persist do
       email ""
     end
-    
+
   end
 end
