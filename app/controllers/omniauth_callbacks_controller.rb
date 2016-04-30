@@ -2,7 +2,6 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
   def do_omniauth
     @user = User.from_omniauth(request.env["omniauth.auth"])
-    provider_data = @user.provider
     provider_kind = @user.provider.capitalize
 
     if @user.persisted?

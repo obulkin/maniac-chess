@@ -10,6 +10,7 @@ RSpec.describe OmniauthCallbacksController, :type => :controller do
       request.env["omniauth.auth"] = FactoryGirl.create(:auth_hash, :facebook)
       get :facebook
       user = User.find_by(email: 'testuser@facebook.com')
+      expect(user).not_to eq(nil)
       expect(flash[:notice]).to eq("Successfully authenticated from Facebook account.")
     end
 
@@ -26,6 +27,7 @@ RSpec.describe OmniauthCallbacksController, :type => :controller do
       request.env["omniauth.auth"] = FactoryGirl.create(:auth_hash, :google)
       get :google
       user = User.find_by(email: 'testuser@gmail.com')
+      expect(user).not_to eq(nil)
       expect(flash[:notice]).to eq("Successfully authenticated from Google account.")
     end
 
