@@ -12,6 +12,7 @@ RSpec.describe OmniauthCallbacksController, :type => :controller do
       user = User.find_by(email: 'testuser@facebook.com')
       expect(user).not_to eq(nil)
       expect(flash[:notice]).to eq("Successfully authenticated from Facebook account.")
+      expect(subject.current_user).to eq(user)
     end
 
     it "should redirect the user to the new user registration form, if the user does not persist" do
@@ -29,6 +30,7 @@ RSpec.describe OmniauthCallbacksController, :type => :controller do
       user = User.find_by(email: 'testuser@gmail.com')
       expect(user).not_to eq(nil)
       expect(flash[:notice]).to eq("Successfully authenticated from Google account.")
+      expect(subject.current_user).to eq(user)
     end
 
     it "should redirect the user to the new user registration form, if the user does not persist" do
