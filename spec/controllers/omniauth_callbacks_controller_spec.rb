@@ -6,7 +6,7 @@ RSpec.describe OmniauthCallbacksController, :type => :controller do
   end
 
   describe "#facebook" do
-    it "should successfully authenticate using Facebook authentication hash and display a success message in flash" do
+    it "should successfully authenticate using Facebook authentication hash and display a success message in flash, if the user persists" do
       request.env["omniauth.auth"] = FactoryGirl.create(:auth_hash, :facebook)
       get :facebook
       user = User.find_by(email: 'testuser@facebook.com')
@@ -14,7 +14,7 @@ RSpec.describe OmniauthCallbacksController, :type => :controller do
       expect(flash[:notice]).to eq("Successfully authenticated from Facebook account.")
     end
 
-    it "should redirect the user to the new user registration form" do
+    it "should redirect the user to the new user registration form, if the user does not persist" do
       request.env["omniauth.auth"] = FactoryGirl.create(:auth_hash, :facebook, :does_not_persist)
       get :facebook
       expect(flash[:notice]).to eq("We were not able to authenticate you. Try signing up directly with MANIAC chess by entering an email address and creating a new password.")
