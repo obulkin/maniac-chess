@@ -1,5 +1,7 @@
 FactoryGirl.define do
-
+  # When calling auth_hash, use one of the traits listed below for a
+  # facebook user, google user or when testing a user who does not
+  # persist, use the does_not_persist trait. 
   factory :auth_hash, class: OmniAuth::AuthHash do
     skip_create
 
