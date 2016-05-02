@@ -70,3 +70,7 @@ gem "simple_form"
 
 # Use figaro to manage enviroment variables
 gem 'figaro'
+
+# OmniAuth Authentication providers
+gem 'omniauth-google-oauth2'
+gem 'omniauth-facebook'
