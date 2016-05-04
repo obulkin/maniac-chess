@@ -89,4 +89,140 @@ RSpec.describe Piece, type: :model do
       expect(black_piece.user.id).to eq(black_piece.game.black_player.id)
     end
   end
+
+  describe "#is_move_obstructed?" do
+    let(:game) {create :game}
+
+    describe "horizontal moves" do
+      it "should detect adjacent obstructions" do
+        test_king = game.pieces.find_by(rank: 1, file: 5)
+        expect(test_king.send :is_move_obstructed?, 1, 6).to eq(true)
+        expect(test_king.send :is_move_obstructed?, 1, 4).to eq(true)
+      end
+
+      it "should detect intermediate obstructions" do
+        test_king = game.pieces.find_by(rank: 1, file: 5)
+        game.pieces.where(rank: 1, file: 7).delete_all
+        game.pieces.where(rank: 1, file: 3).delete_all
+        expect(test_king.send :is_move_obstructed?, 1, 7).to eq(true)
+        expect(test_king.send :is_move_obstructed?, 1, 3).to eq(true)
+      end
+
+      it "should detect obstructions at a remote move location" do
+        test_king = game.pieces.find_by(rank: 1, file: 5)
+        game.pieces.where(rank: 1, file: 6).delete_all
+        game.pieces.where(rank: 1, file: 4).delete_all
+        expect(test_king.send :is_move_obstructed?, 1, 7).to eq(true)
+        expect(test_king.send :is_move_obstructed?, 1, 3).to eq(true)
+      end
+
+      it "should exclude captures from being treated as obstructions" do
+        test_king = game.pieces.find_by(rank: 1, file: 5)
+        game.pieces.where(rank: 1, file: 6).delete_all
+        create :piece, rank: 1, file: 6, color: "black", game: game
+        expect(test_king.send :is_move_obstructed?, 1, 6).to eq(false)
+      end
+
+      it "should correctly evaluate unobstructed moves" do
+        game.pieces.where(rank: 1).delete_all
+        test_king = create :piece, rank: 1, file: 5, game: game
+        expect(test_king.send :is_move_obstructed?, 1, 3).to eq(false)
+        expect(test_king.send :is_move_obstructed?, 1, 4).to eq(false)
+        expect(test_king.send :is_move_obstructed?, 1, 6).to eq(false)
+        expect(test_king.send :is_move_obstructed?, 1, 7).to eq(false)
+      end
+    end
+
+    describe "vertical moves" do
+      it "should detect adjacent obstructions" do
+        white_rook = game.pieces.find_by(rank: 1, file: 8)
+        black_rook = game.pieces.find_by(rank: 8, file: 8)
+        expect(white_rook.send :is_move_obstructed?, 2, 8).to eq(true)
+        expect(black_rook.send :is_move_obstructed?, 7, 8).to eq(true)
+      end
+
+      it "should detect intermediate obstructions" do
+        white_rook = game.pieces.find_by(rank: 1, file: 8)
+        black_rook = game.pieces.find_by(rank: 8, file: 8)
+        expect(white_rook.send :is_move_obstructed?, 3, 8).to eq(true)
+        expect(black_rook.send :is_move_obstructed?, 6, 8).to eq(true)
+      end
+
+      it "should detect obstructions at a remote move location" do
+        white_king = create :piece, rank: 4, file: 8, game: game
+        black_king = create :piece, rank: 5, file: 8, color: "black", game: game
+        expect(white_king.send :is_move_obstructed?, 2, 8).to eq(true)
+        expect(black_king.send :is_move_obstructed?, 7, 8).to eq(true)
+      end
+
+      it "should exclude captures from being treated as obstructions" do
+        white_king = create :piece, rank: 5, file: 8, game: game
+        black_king = create :piece, rank: 4, file: 8, color: "black", game: game
+        expect(white_king.send :is_move_obstructed?, 7, 8).to eq(false)
+        expect(black_king.send :is_move_obstructed?, 2, 8).to eq(false)
+      end
+
+      it "should correctly evaluate unobstructed moves" do
+        game.pieces.where(file: 8).delete_all
+        test_king = create :piece, rank: 4, file: 8, game: game
+        expect(test_king.send :is_move_obstructed?, 2, 8).to eq(false)
+        expect(test_king.send :is_move_obstructed?, 3, 8).to eq(false)
+        expect(test_king.send :is_move_obstructed?, 5, 8).to eq(false)
+        expect(test_king.send :is_move_obstructed?, 6, 8).to eq(false)
+      end
+    end
+
+    describe "diagonal moves" do
+      it "should detect adjacent obstructions" do
+        white_bishop = game.pieces.find_by(rank: 1, file: 6)
+        black_bishop = game.pieces.find_by(rank: 8, file: 6)
+        expect(white_bishop.send :is_move_obstructed?, 2, 5).to eq(true)
+        expect(white_bishop.send :is_move_obstructed?, 2, 7).to eq(true)
+        expect(black_bishop.send :is_move_obstructed?, 7, 5).to eq(true)
+        expect(black_bishop.send :is_move_obstructed?, 7, 7).to eq(true)
+      end
+
+      it "should detect intermediate obstructions" do
+        white_king = create :piece, rank: 4, file: 5, game: game
+        black_king = create :piece, rank: 5, file: 5, color: "black", game: game
+        game.pieces.where(rank: 1).delete_all
+        game.pieces.where(rank: 8).delete_all
+        expect(white_king.send :is_move_obstructed?, 1, 2).to eq(true)
+        expect(white_king.send :is_move_obstructed?, 1, 8).to eq(true)
+        expect(black_king.send :is_move_obstructed?, 8, 2).to eq(true)
+        expect(black_king.send :is_move_obstructed?, 8, 8).to eq(true)
+      end
+
+      it "should detect obstructions at a remote move location" do
+        white_king = create :piece, rank: 4, file: 5, game: game
+        black_king = create :piece, rank: 5, file: 5, color: "black", game: game
+        expect(white_king.send :is_move_obstructed?, 2, 3).to eq(true)
+        expect(white_king.send :is_move_obstructed?, 2, 7).to eq(true)
+        expect(black_king.send :is_move_obstructed?, 7, 3).to eq(true)
+        expect(black_king.send :is_move_obstructed?, 7, 7).to eq(true)
+      end
+
+      it "should exclude captures from being treated as obstructions" do
+        white_king = create :piece, rank: 5, file: 5, game: game
+        black_king = create :piece, rank: 4, file: 5, color: "black", game: game
+        expect(white_king.send :is_move_obstructed?, 7, 3).to eq(false)
+        expect(white_king.send :is_move_obstructed?, 7, 7).to eq(false)
+        expect(black_king.send :is_move_obstructed?, 2, 3).to eq(false)
+        expect(black_king.send :is_move_obstructed?, 2, 7).to eq(false)
+      end
+
+      it "should correctly evaluate unobstructed moves" do
+        white_king = create :piece, rank: 5, file: 5, game: game
+        black_king = create :piece, rank: 4, file: 5, color: "black", game: game
+        expect(white_king.send :is_move_obstructed?, 4, 6).to eq(false)
+        expect(white_king.send :is_move_obstructed?, 4, 4).to eq(false)
+        expect(white_king.send :is_move_obstructed?, 3, 7).to eq(false)
+        expect(white_king.send :is_move_obstructed?, 3, 3).to eq(false)
+        expect(black_king.send :is_move_obstructed?, 5, 6).to eq(false)
+        expect(black_king.send :is_move_obstructed?, 5, 4).to eq(false)
+        expect(black_king.send :is_move_obstructed?, 6, 7).to eq(false)
+        expect(black_king.send :is_move_obstructed?, 6, 3).to eq(false)
+      end
+    end
+  end
 end

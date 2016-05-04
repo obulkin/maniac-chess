@@ -52,7 +52,7 @@ RSpec.configure do |config|
 
   # Filter lines from Rails gems in backtraces.
   config.filter_rails_from_backtrace!
-  
+
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
 
@@ -63,4 +63,10 @@ RSpec.configure do |config|
   config.after :suite do
     DatabaseCleaner.clean_with :truncation
   end
+
+  # Turn on "test mode" for OmniAuth
+  OmniAuth.config.test_mode = true
+
+  # Include Devise TestHelpers
+  config.include Devise::TestHelpers, type: :controller
 end
