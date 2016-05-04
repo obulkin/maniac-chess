@@ -1,6 +1,6 @@
 MANIACChess::Application.routes.draw do
   devise_for :users
- resource :board, only: [:show]
+ resource :board, only: :show
   
 
   # The priority is based upon order of creation: first created -> highest priority.
