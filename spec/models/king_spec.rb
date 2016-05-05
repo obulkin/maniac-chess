@@ -23,9 +23,5 @@ RSpec.describe King, type: :model do
   		expect(king2.valid_move?(4, 4)).to eq(true)
   		expect(king2.valid_move?(5, 6)).to eq(true)
   	end
-  
-    it "shouldn't be on same sqaure after moving" do
-      expect(king.valid_move?(1, 5)).to eq(false)
-    end
   end
 end
