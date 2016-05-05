@@ -11,6 +11,10 @@ class Piece < ActiveRecord::Base
     color == "white" ? game.white_player : game.black_player
   end
 
+  def is_move_malformed?(new_rank, new_file)
+    rank == new_rank && file == new_file
+  end
+
   protected
   # This method only checks for obstructions along horizontal, vertical, and diagonal moves. Before calling it, 
   # please make sure that the move provided falls into one of these categories and that an obstruction check is 
