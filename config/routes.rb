@@ -1,7 +1,8 @@
 MANIACChess::Application.routes.draw do
-  devise_for :users, :controllers => { :omniauth_callbacks => "omniauth_callbacks" }
+devise_for :users, :controllers => { :omniauth_callbacks => "omniauth_callbacks" }
 
-  root 'static_pages#index'
+root 'static_pages#index'
+resource :board, only: :show
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
