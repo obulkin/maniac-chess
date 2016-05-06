@@ -6,7 +6,7 @@ class GamesController < ApplicationController
   end
 
   def create
-    @game = Game.create(game_params.merge(white_player_id: current_user.id))
+    @game = Game.create(game_params.merge(white_player_id: current_user.id, state: "open"))
     if @game.persisted?
       redirect_to game_path(@game)
     else
@@ -14,14 +14,10 @@ class GamesController < ApplicationController
     end
   end
 
-  def show
-    begin 
-      @game = Game.find(params[:id])
+  def show 
+    @game = Game.find(params[:id])
     rescue ActiveRecord::RecordNotFound
-      if @game.nil?
-        render text: 'Game Not Found', status: :not_found
-      end
-    end
+    render text: 'Game Not Found', status: :not_found
   end
 
   def update 
@@ -36,3 +32,4 @@ class GamesController < ApplicationController
     params.require(:game).permit(:name)
   end
 end
+
