@@ -90,7 +90,11 @@ class Piece < ActiveRecord::Base
   end
   
   def is_move_malformed?(new_rank, new_file)
-      rank == new_rank && file == new_file
+      return true if rank == new_rank && file == new_file
+      return true if rank < 1 || rank > 8
+      return true if file < 1 || file > 8
+      return true if new_rank < 1 || new_rank > 8
+      return true if new_file < 1 || new_file > 8
   end
   
 end

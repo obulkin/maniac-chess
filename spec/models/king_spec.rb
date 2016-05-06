@@ -31,7 +31,7 @@ RSpec.describe King, type: :model do
     end
 
     it "should properly evaluate valid moves" do
-      king2 = game.pieces.create(type: "King", rank: 4,  file: 5, color: "black")
+      king2 = game.pieces.create(type: "King", rank: 4, file: 5, color: "black")
       expect(king2.valid_move?(4, 6)).to eq(true)
       expect(king2.valid_move?(4, 4)).to eq(true)
       expect(king2.valid_move?(5, 5)).to eq(true)
@@ -48,7 +48,14 @@ RSpec.describe King, type: :model do
     end
 
     it "should properly evaluate moves that take a king outside the board but are otherwise valid" do
-      # return false if a king moves outside the board
+      king1 = game.pieces.create(type: "King", rank: 4, file: 8, color: "white")
+      king2 = game.pieces.create(type: "King", rank: 5, file: 1, color: "black")
+      expect(king1.valid_move?(4, 9)).to eq(false)
+      expect(king1.valid_move?(5, 9)).to eq(false)
+      expect(king1.valid_move?(3, 9)).to eq(false)
+      expect(king2.valid_move?(5, 0)).to eq(false)
+      expect(king2.valid_move?(6, 0)).to eq(false)
+      expect(king2.valid_move?(4, 0)).to eq(false)
     end
 
   end
