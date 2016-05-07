@@ -48,14 +48,22 @@ RSpec.describe King, type: :model do
     end
 
     it "should properly evaluate moves that take a king outside the board but are otherwise valid" do
-      king1 = game.pieces.create(type: "King", rank: 4, file: 8, color: "white")
-      king2 = game.pieces.create(type: "King", rank: 5, file: 1, color: "black")
-      expect(king1.valid_move?(4, 9)).to eq(false)
-      expect(king1.valid_move?(5, 9)).to eq(false)
-      expect(king1.valid_move?(3, 9)).to eq(false)
-      expect(king2.valid_move?(5, 0)).to eq(false)
-      expect(king2.valid_move?(6, 0)).to eq(false)
-      expect(king2.valid_move?(4, 0)).to eq(false)
+      king = game.pieces.find_by(rank: 1, file: 5, color: "white")
+      king2 = game.pieces.find_by(rank: 8, file: 5, color: "black")
+      king3 = game.pieces.create(type: "King", rank: 4, file: 8, color: "white")
+      king4 = game.pieces.create(type: "King", rank: 5, file: 1, color: "black")
+      expect(king.valid_move?(0, 5)).to eq(false)
+      expect(king.valid_move?(0, 4)).to eq(false)
+      expect(king.valid_move?(0, 6)).to eq(false)
+      expect(king2.valid_move?(9, 5)).to eq(false)
+      expect(king2.valid_move?(9, 4)).to eq(false)
+      expect(king2.valid_move?(9, 6)).to eq(false)
+      expect(king3.valid_move?(4, 9)).to eq(false)
+      expect(king3.valid_move?(5, 9)).to eq(false)
+      expect(king3.valid_move?(3, 9)).to eq(false)
+      expect(king4.valid_move?(5, 0)).to eq(false)
+      expect(king4.valid_move?(6, 0)).to eq(false)
+      expect(king4.valid_move?(4, 0)).to eq(false)
     end
 
   end
