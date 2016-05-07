@@ -225,4 +225,25 @@ RSpec.describe Piece, type: :model do
       end
     end
   end
+
+  describe "#is_move_malformed?" do
+    let(:game) {create :game}
+
+    it "should return true if a user moves a piece back to the same square" do
+      white_king = create :piece, rank: 4, file: 8, game: game
+      expect(white_king.send :is_move_malformed?, 4, 8).to eq(true)
+    end
+
+    it "should return true if a user tries to move a piece outside the board" do
+      white_king = create :piece, rank: 1, file: 8, game: game
+      expect(white_king.send :is_move_malformed?, 0, 8).to eq(true)
+      expect(white_king.send :is_move_malformed?, 1, 9).to eq(true)
+      expect(white_king.send :is_move_malformed?, 8, 9).to eq(true)
+      expect(white_king.send :is_move_malformed?, 9, 8).to eq(true)
+      expect(white_king.send :is_move_malformed?, 8, 0).to eq(true)
+      expect(white_king.send :is_move_malformed?, 9, 1).to eq(true)
+      expect(white_king.send :is_move_malformed?, 1, 0).to eq(true)
+      expect(white_king.send :is_move_malformed?, 0, 1).to eq(true)
+    end
+  end
 end
