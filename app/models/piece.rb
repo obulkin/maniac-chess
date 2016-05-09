@@ -11,6 +11,14 @@ class Piece < ActiveRecord::Base
     color == "white" ? game.white_player : game.black_player
   end
 
+  def capture_move?(new_rank, new_file)
+    if color == "white"
+      game.pieces.find_by(rank: new_rank, file: new_file, color: "black") ? true : false
+    else
+      game.pieces.find_by(rank: new_rank, file: new_file, color: "white") ? true : false
+    end
+  end
+
   protected
   # This method only checks for obstructions along horizontal, vertical, and diagonal moves. Before calling it,
   # please make sure that the move provided falls into one of these categories and that an obstruction check is
