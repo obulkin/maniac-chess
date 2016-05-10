@@ -13,11 +13,8 @@ class Piece < ActiveRecord::Base
 
   # Please note that this method does not test whether the move is valid
   def capture_move?(new_rank, new_file)
-    if color == "white"
-      game.pieces.find_by(rank: new_rank, file: new_file, color: "black") ? true : false
-    else
-      game.pieces.find_by(rank: new_rank, file: new_file, color: "white") ? true : false
-    end
+    color == "white" ? enemy_color = "black" : enemy_color = "white"
+    game.pieces.find_by(rank: new_rank, file: new_file, color: enemy_color) ? true : false
   end
 
   protected
