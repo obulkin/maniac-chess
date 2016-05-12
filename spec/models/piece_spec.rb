@@ -256,4 +256,45 @@ RSpec.describe Piece, type: :model do
       expect(white_king.send :is_move_malformed?, 5, 4).to eq(false)
     end
   end
+
+  describe "#capture_move?" do
+    it "should return true for moves to a square with an enemy piece" do
+      white_king = create :piece, rank: 7, file: 5
+      black_king = create :piece, rank: 2, file: 5, color: "black"
+      expect(white_king.capture_move? 8, 5).to eq(true)
+      expect(white_king.capture_move? 8, 4).to eq(true)
+      expect(white_king.capture_move? 8, 6).to eq(true)
+      expect(white_king.capture_move? 7, 1).to eq(true)
+      expect(white_king.capture_move? 7, 8).to eq(true)
+      expect(black_king.capture_move? 1, 4).to eq(true)
+      expect(black_king.capture_move? 1, 5).to eq(true)
+      expect(black_king.capture_move? 1, 6).to eq(true)
+    end
+
+    it "should return false for moves to a square with a friendly piece" do
+      game = create :game
+      white_king = game.pieces.find_by rank: 1, file: 5
+      black_king = game.pieces.find_by rank: 8, file: 5
+      expect(white_king.capture_move? 1, 4).to eq(false)
+      expect(white_king.capture_move? 1, 6).to eq(false)
+      expect(white_king.capture_move? 2, 4).to eq(false)
+      expect(white_king.capture_move? 2, 5).to eq(false)
+      expect(white_king.capture_move? 2, 6).to eq(false)
+      expect(black_king.capture_move? 7, 4).to eq(false)
+      expect(black_king.capture_move? 7, 5).to eq(false)
+      expect(black_king.capture_move? 7, 6).to eq(false)
+    end
+
+    it "should return false for moves to an empty square" do
+      white_king = create :piece, rank: 5, file: 5
+      expect(white_king.capture_move? 4, 4).to eq(false)
+      expect(white_king.capture_move? 4, 5).to eq(false)
+      expect(white_king.capture_move? 4, 6).to eq(false)
+      expect(white_king.capture_move? 5, 4).to eq(false)
+      expect(white_king.capture_move? 5, 6).to eq(false)
+      expect(white_king.capture_move? 6, 4).to eq(false)
+      expect(white_king.capture_move? 6, 5).to eq(false)
+      expect(white_king.capture_move? 6, 6).to eq(false)
+    end
+  end
 end
