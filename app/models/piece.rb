@@ -17,6 +17,10 @@ class Piece < ActiveRecord::Base
     game.pieces.find_by(rank: new_rank, file: new_file, color: enemy_color) ? true : false
   end
 
+  def update_en_passant(old_rank)
+    en_passant = true if type == "Pawn" && (rank - old_rank).abs == 2
+  end
+
   protected
   # This method only checks for obstructions along horizontal, vertical, and diagonal moves. Before calling it,
   # please make sure that the move provided falls into one of these categories and that an obstruction check is
