@@ -18,7 +18,7 @@ class Piece < ActiveRecord::Base
   end
 
   def update_en_passant(old_rank)
-    en_passant = true if type == "Pawn" && (rank - old_rank).abs == 2
+    update en_passant: true if type == "Pawn" && (rank - old_rank).abs == 2
   end
 
   protected
