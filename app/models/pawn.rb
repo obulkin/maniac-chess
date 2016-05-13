@@ -18,6 +18,8 @@ class Pawn < Piece
     return true if rank == starting_rank && rank_diff == 2 * correct_direction && file_diff == 0
     # Capture move
     return true if rank_diff == correct_direction && file_diff.abs == 1 && capture_move?(new_rank, new_file)
+    # En passant capture
+    return true if rank_diff == correct_direction && file_diff.abs == 1 && game.pieces.find_by rank: rank, file: new_file, en_passant: true
     
     false
   end
