@@ -104,13 +104,4 @@ class Piece < ActiveRecord::Base
     return true if new_file < 1 || new_file > 8
     false
   end
-
-  def horizontal_move?(new_rank, new_file)
-    rank == new_rank
-  end
-
-  def vertical_move?(new_rank, new_file)
-    file == new_file
-  end
-
 end
