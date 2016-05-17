@@ -29,57 +29,6 @@ RSpec.describe GamesController, type: :controller do
     end
   end
 
-  describe "games#update action" do 
-    before :each do 
-      @game = FactoryGirl.create(:game, name: "Test Name", state: "open")
-    end
-
-    context "with valid attributes" do
-      it "located the requested @game" do
-        user = create(:user)
-        sign_in user
-        put :update, id: @game, game: FactoryGirl.attributes_for(:game)
-        expect(@game).to eq(@game) 
-    end
-
-    it "changes @game's attributes" do 
-      user = create(:user)
-      sign_in user
-      put :update, id: @game, 
-        game: FactoryGirl.attributes_for(:game, name: "Test Name", state: "open")
-        @game.reload
-        expect(@game.name).to eq("Test Name")
-        expect(@game.state).to eq("open")
-      end
-
-    it "redirects to the updated game" do 
-      user = create(:user)
-      sign_in user
-      put :update, id: @game, game: FactoryGirl.attributes_for(:game)
-      expect(response).to redirect_to @game
-    end
-  end
-
-  context "invalid attributes" do 
-    it "locates the requested @game" do 
-      user = create(:user)
-      sign_in user
-      put :update, id: @game, game: FactoryGirl.attributes_for(:invalid_game)
-      expect(@game).to eq(@game)
-    end
-
-    it "does not change @game's attributes" do 
-      user = create(:user)
-      sign_in user
-      put :update, id: @game, 
-        game: FactoryGirl.attributes_for(:game, name: "Test Game", state: nil)
-        @game.reload
-        expect(@game.name).not_to eq("Test Game")
-        expect(@game.state).to eq("open")
-      end
-    end
-  end
-
   describe "games#create action" do
     context "with valid attributes" do
       it "creates a new game" do 
