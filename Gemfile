@@ -60,6 +60,8 @@ group :development, :test do
 
   # Use factory_girl in place of fixtures for generating test objects
   gem "factory_girl_rails", "~> 4.0"
+
+  gem 'pry'
 end
 
 # Use Database Cleaner to automatically clean up the DB between RSpec runs

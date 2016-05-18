@@ -5,4 +5,8 @@ FactoryGirl.define do
     association :black_player, factory: :user
     state "open"
   end
+  
+  factory :invalid_game, parent: :game do 
+    name nil
+  end
 end
