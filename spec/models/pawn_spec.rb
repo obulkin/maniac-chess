@@ -88,5 +88,25 @@ RSpec.describe Pawn, type: :model do
       expect(black_pawn.valid_move? 3, 4).to eq(false)
       expect(black_pawn.valid_move? 3, 6).to eq(false)
     end
+
+    it "should correctly evaluate valid and invalid en passant captures" do
+      white_pawn = create :pawn, rank: 7, file: 5, game: game
+      black_pawn = create :pawn, rank: 2, file: 5, color: "black", game: game
+      game.pieces.where(rank: 1).destroy_all
+      game.pieces.where(rank: 8).destroy_all
+      expect(white_pawn.valid_move? 8, 4).to eq(false)
+      expect(white_pawn.valid_move? 8, 6).to eq(false)
+      expect(black_pawn.valid_move? 1, 4).to eq(false)
+      expect(black_pawn.valid_move? 1, 6).to eq(false)
+
+      game.pieces.find_by(rank: 7, file: 4).update_en_passant 9
+      game.pieces.find_by(rank: 7, file: 6).update_en_passant 9
+      game.pieces.find_by(rank: 2, file: 4).update_en_passant 0
+      game.pieces.find_by(rank: 2, file: 6).update_en_passant 0
+      expect(white_pawn.valid_move? 8, 4).to eq(true)
+      expect(white_pawn.valid_move? 8, 6).to eq(true)
+      expect(black_pawn.valid_move? 1, 4).to eq(true)
+      expect(black_pawn.valid_move? 1, 6).to eq(true)
+    end
   end
 end
