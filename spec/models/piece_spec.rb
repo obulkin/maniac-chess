@@ -297,4 +297,48 @@ RSpec.describe Piece, type: :model do
       expect(white_king.capture_move? 6, 6).to eq(false)
     end
   end
+
+  describe "#update_en_passant" do
+    let(:game) {create :game}
+
+    it "should not change the en_passant attribute of a piece that isn't a pawn" do
+      white_rook = create :piece, rank: 3, file: 1, type: "Rook", game: game
+      white_knight = create :piece, rank: 3, file: 2, type: "Knight", game: game
+      white_bishop = create :piece, rank: 3, file: 3, type: "Bishop", game: game
+      white_queen = create :piece, rank: 3, file: 4, type: "Queen", game: game
+      white_king = create :piece, rank: 3, file: 5, game: game
+      expect{white_rook.update_en_passant 1}.to_not change(white_rook, :en_passant)
+      expect{white_knight.update_en_passant 1}.to_not change(white_knight, :en_passant)
+      expect{white_bishop.update_en_passant 1}.to_not change(white_bishop, :en_passant)
+      expect{white_queen.update_en_passant 1}.to_not change(white_queen, :en_passant)
+      expect{white_king.update_en_passant 1}.to_not change(white_king, :en_passant)
+
+      black_rook = create :piece, rank: 6, file: 1, type: "Rook", color: "black", game: game
+      black_knight = create :piece, rank: 6, file: 2, type: "Knight", color: "black", game: game
+      black_bishop = create :piece, rank: 6, file: 3, type: "Bishop", color: "black", game: game
+      black_queen = create :piece, rank: 6, file: 4, type: "Queen", color: "black", game: game
+      black_king = create :piece, rank: 6, file: 5, color: "black", game: game
+      expect{black_rook.update_en_passant 8}.to_not change(black_rook, :en_passant)
+      expect{black_knight.update_en_passant 8}.to_not change(black_knight, :en_passant)
+      expect{black_bishop.update_en_passant 8}.to_not change(black_bishop, :en_passant)
+      expect{black_queen.update_en_passant 8}.to_not change(black_queen, :en_passant)
+      expect{black_king.update_en_passant 8}.to_not change(black_king, :en_passant)
+    end
+
+    it "should not change the en_passant attribute of a pawn after a basic or capture move" do
+      white_pawn = game.pieces.find_by rank: 2, file: 5
+      black_pawn = game.pieces.find_by rank: 7, file: 5
+      expect{white_pawn.update_en_passant 1}.to_not change(white_pawn, :en_passant)
+      expect{black_pawn.update_en_passant 8}.to_not change(black_pawn, :en_passant)
+    end
+
+    it "should set the en_passant attribute of a pawn to true after a double move" do
+      white_pawn = game.pieces.find_by rank: 2, file: 5
+      black_pawn = game.pieces.find_by rank: 7, file: 5
+      white_pawn.update_en_passant 0
+      black_pawn.update_en_passant 9
+      expect(white_pawn.en_passant).to eq(true)
+      expect(black_pawn.en_passant).to eq(true)
+    end
+  end
 end

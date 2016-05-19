@@ -59,6 +59,8 @@ RSpec.configure do |config|
   # Simplify factory_girl syntax
   config.include FactoryGirl::Syntax::Methods
 
+  config.include Devise::TestHelpers, type: :controller
+
   # Clean up the test DB after each run by truncating all the tables
   config.after :suite do
     DatabaseCleaner.clean_with :truncation
