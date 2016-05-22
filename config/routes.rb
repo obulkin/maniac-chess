@@ -5,7 +5,7 @@ MANIACChess::Application.routes.draw do
   resources :games, :only => [:new, :show, :create, :update]
 
   root 'static_pages#index'
-  resource :board, only: :show
+  
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
