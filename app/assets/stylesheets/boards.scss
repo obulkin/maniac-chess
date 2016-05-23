@@ -5,14 +5,18 @@ width: 5em;
 border: 3px solid #333;
 }
 tr.odd td:nth-child(odd){
-background-color: #000608
+background-color: #787C7D
 }
 tr.even td:nth-child(even){
-background-color: #000608;
+background-color: #787C7D;
 }
 .block-center {
 margin-left: auto;
 margin-right: auto;
 margin-top: 5%;
 margin-bottom: 5%;
+}
+.unicode {
+font-size: 400%;
+padding: 6%;
 }

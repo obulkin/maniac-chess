@@ -12,4 +12,13 @@ class Knight < Piece
 
     true
   end
+
+  def image
+    if color == 'white'
+      return '&#9816;'
+    else
+      return '&#9822;'
+    end
+  end
+  
 end

@@ -8,4 +8,12 @@ class King < Piece
       false
     end 
   end
+
+  def image
+    if color == 'white'
+      return '&#9812;'
+    else
+      return '&#9818;'
+    end
+  end
 end

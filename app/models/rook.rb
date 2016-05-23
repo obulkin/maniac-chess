@@ -6,6 +6,14 @@ class Rook < Piece
       false
     end
   end
+
+  def image 
+    if color == 'white'
+      return '&#9814;'
+    else
+      return '&#9820;'
+    end
+  end
 end
 
 
