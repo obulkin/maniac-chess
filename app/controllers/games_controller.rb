@@ -16,6 +16,7 @@ class GamesController < ApplicationController
 
   def show 
     @game = Game.find(params[:id])
+    @pieces = @game.pieces
     rescue ActiveRecord::RecordNotFound
     render text: 'Game Not Found', status: :not_found
   end

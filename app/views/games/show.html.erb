@@ -4,8 +4,8 @@
      <% 4.times do |row| %>
       <tr class="even">
        <% 8.times do |even_cell| %>
-       <% if Piece.where(game_id: (params[:id]), file: even_cell + 1, rank: row * 2 + 1)[0]%>
-        <td><font class="unicode"><%= Piece.where(game_id: (params[:id]), file: even_cell + 1, rank: row * 2 + 1)[0].image.html_safe %></font></td> 
+       <% if @pieces.where(file: even_cell + 1, rank: row * 2 + 1)[0]%>
+        <td><font class="unicode"><%= @pieces.where(file: even_cell + 1, rank: row * 2 + 1)[0].image.html_safe %></font></td> 
         <% else %>
         <td></td> 
         <% end %>   
@@ -13,8 +13,8 @@
       </tr>
       <tr class="odd">
        <% 8.times do |odd_cell| %>
-        <% if Piece.where(game_id: (params[:id]), file: odd_cell + 1, rank: row * 2 + 2)[0]%>
-         <td><font class="unicode"><%= Piece.where(game_id: (params[:id]), file: odd_cell + 1, rank: row * 2 + 2)[0].image.html_safe %></font></td>
+        <% if @pieces.where(file: odd_cell + 1, rank: row * 2 + 2)[0]%>
+         <td><font class="unicode"><%= @pieces.where(file: odd_cell + 1, rank: row * 2 + 2)[0].image.html_safe %></font></td>
         <% else %>
          <td></td> 
         <% end %>

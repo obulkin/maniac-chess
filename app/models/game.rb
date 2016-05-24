@@ -23,7 +23,7 @@ class Game < ActiveRecord::Base
   def populate_board!
     #white_pieces
     (1..8).each do |i|
-      Pawn.create(game_id: id, rank: 2, file: i, color: 'white')
+    Pawn.create(game_id: id, rank: 2, file: i, color: 'white')
     end
     
     Rook.create(game_id: id, rank: 1, file: 1, color: 'white')
