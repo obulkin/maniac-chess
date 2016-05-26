@@ -5,8 +5,12 @@
       <tr class="even">
        <% 8.times do |even_cell| %>
        <% if @pieces.where(file: even_cell + 1, rank: row * 2 + 1)[0]%>
-        <td><font class="unicode"><%= @pieces.where(file: even_cell + 1, rank: row * 2 + 1)[0].image.html_safe %></font></td> 
-        <% else %>
+        <td>
+         <font class="unicode">
+          <%= @pieces.where(file: even_cell + 1, rank: row * 2 + 1)[0].image.html_safe %>
+         </font>
+        </td> 
+       <% else %>
         <td></td> 
         <% end %>   
        <% end %>
@@ -14,7 +18,11 @@
       <tr class="odd">
        <% 8.times do |odd_cell| %>
         <% if @pieces.where(file: odd_cell + 1, rank: row * 2 + 2)[0]%>
-         <td><font class="unicode"><%= @pieces.where(file: odd_cell + 1, rank: row * 2 + 2)[0].image.html_safe %></font></td>
+         <td>
+         <font class="unicode">
+          <%= @pieces.where(file: odd_cell + 1, rank: row * 2 + 2)[0].image.html_safe %>
+         </font>
+         </td>
         <% else %>
          <td></td> 
         <% end %>
