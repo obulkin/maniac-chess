@@ -10,4 +10,12 @@ class Bishop < Piece
     
     !is_move_obstructed? new_rank, new_file
   end
+
+  def image
+    if color == 'white'
+      return '&#9815;'
+    else
+      return '&#9821;'
+    end
+  end
 end

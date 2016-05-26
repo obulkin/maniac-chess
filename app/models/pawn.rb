@@ -23,4 +23,12 @@ class Pawn < Piece
     
     false
   end
+
+  def image
+    if color == 'white'
+      return '&#9817;'
+    else
+      return '&#9823;'
+    end
+  end
 end
